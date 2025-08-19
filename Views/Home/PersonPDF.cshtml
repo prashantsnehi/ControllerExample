@@ -1,0 +1,37 @@
+@model ICollection<Person>
+@{
+    Layout = null;
+}
+
+@* <link rel="stylesheet" href="~/lib/bootstrap-icons/font/bootstrap-icons.css" />
+<link rel="stylesheet" href="~/lib/bootstrap/css/bootstrap.min.css" /> *@
+<link href="@("http://"+ Context.Request.Host + "/lib/bootstrap/css/bootstrap.min.css")" rel="stylesheet" />    
+<link href="@("http://"+ Context.Request.Host + "/lib/bootstrap-icons/font/bootstrap-icons.css")" rel="stylesheet" />    
+
+<div class="row d-flex justify-content-center align-content-center">
+    <div class="col-md-12">
+        <table class="table table-striped text-center">
+            <thead>
+                <tr>
+                    <th>Image</th>
+                    <th>Persons Id</th>
+                    <th>Person Name</th>
+                    <th>Email</th>
+                    <th>Phone</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var person in Model)
+                {
+                    <tr>
+                        <td style="font-size: 30px;"><i class="bi bi-person-arms-up"></i></td>
+                        <td>@person.PersonId</td>
+                        <td>@person.PersonName</td>
+                        <td>@person.Email</td>
+                        <td>@person.Phone</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

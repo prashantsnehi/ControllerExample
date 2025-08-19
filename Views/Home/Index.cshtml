@@ -1,0 +1,71 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="row mb-4">
+    <div class="col-md-6">
+        @{
+            await Html.RenderPartialAsync("_AddPerson", new ControllerExample.Models.Person());
+        }
+    </div>
+    <div class="col-md-6">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card shadow">
+                    <div class="card-header">From View Component</div>
+                    <div class="card-body">
+                        @* @await Component.InvokeAsync("Grid", new { title = "Grid Component" }) *@
+                        @await Component.InvokeAsync("Grid", new { title = "Grid View Component" })
+                    </div>
+                    <div class="card-footer">&copy; 2025 Prashant Kumar Snehi</div>
+                </div>
+            </div>
+        </div>
+        <div class="row mt-4">
+            <div class="col-md-12">
+                <div class="card shadow">
+                    <div class="card-header">From View Component</div>
+                    <div class="card-body" id="fromController"></div>
+                    <div class="card-footer">
+                        <span class="mt-2">&copy; 2025 Prashant Kumar Snehi</span>
+                        <button class="btn btn-outline-primary btn-lg float-end" onclick="getPersonGrid()">
+                            Invoke GridViewComponent
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row mb-4">
+    <div class="col-md-12">
+        <div class="card shadow">
+            <div class="card-header">
+                <h3>
+                    Persons
+                    <div class="float-end">
+                        <button class="btn btn-outline-primary" onclick="getPersons()">Get Persons</button>
+                        <a class="btn btn-outline-success" asp-action="PersonPDF" asp-controller="Home">Download PDF</a>
+                        <a class="btn btn-outline-success" asp-action="PersonCSV" asp-controller="Home">Download CSV</a>
+                        <a class="btn btn-outline-success" asp-action="PersonCustomCSV" asp-controller="Home">Download Custom CSV</a>
+                    </div>
+                </h3>
+            </div>
+            <div class="card-body">
+                <div class="row d-flex justify-content-center align-content-center">
+                    <div class="col-md-12 mt-4">
+                        <div id="personslist">
+                            <span class="text-danger">Content will be updated here...</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card-footer">Index Page</div>
+        </div>
+    </div>
+</div>
+<div class="row mt-2 mb-2"></div>
+
+@section Scripts {
+    <script type="text/javascript" src="./custom.js"></script>
+}

@@ -1,0 +1,54 @@
+<div class="row d-flex justify-content-center align-content-center mt-4">
+    <div class="col-md-12">
+        <div class="card shadow-lg">
+            <div class="card-header">
+                <h4>Request Data</h4>
+            </div>
+            <div class="card-body">
+                <table class="table table-striped">
+                    <tr>
+                        <td>Path</td>
+                        <td>@ViewBag.Source</td>
+                    </tr>
+                    <tr>
+                        <td>Accept</td>
+                        <td>@ViewBag.Accept</td>
+                    </tr>
+                    <tr>
+                        <td>Browser</td>
+                        <td>@ViewBag.Browser</td>
+                    </tr>
+                    <tr>
+                        <td>ContentType</td>
+                        <td>@ViewBag.ContentType</td>
+                    </tr>
+                    <tr>
+                        <td>IPAddress</td>
+                        <td>@ViewBag.IPAddress</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row mt-4">
+    <div class="col-md-12">
+        <div class="card shadow-lg">
+            <div class="card-header">
+                <h4>Response Data</h4>
+            </div>
+            <div class="card-body">
+                <table class="table table-striped">
+                    <tr>
+                        <td>Status</td>
+                        <td>@ViewBag.Status</td>
+                    </tr>
+                    <tr>
+                        <td>ContentType</td>
+                        <td>@ViewBag.ResponseContentType</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
