@@ -14,8 +14,8 @@
                     <form asp-controller="Home" asp-action="UpdateCountries" method="post"
                         enctype="multipart/form-data">
                         <div class="form-group">
-                            <label for="file">Upload CSV File:</label>
-                            <input type="file" class="form-control" id="file" name="file" accept=".xlsx" required />
+                            <label for="file">Upload Excel File:</label>
+                            <input type="file" class="form-control" id="file" name="file" accept=".xlsx, .csv" required />
                         </div>
                         <div class="text-danger">@ViewBag.ErrorMessage</div>
                         <div class="text-success">@ViewBag.SuccessMessage</div>

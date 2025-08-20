@@ -170,7 +170,7 @@ public class HomeController : Controller
             ViewBag.ErrorMessage = "File is not selected or empty.";
             return View();
         }
-        if (Path.GetExtension(file.FileName).ToLower() != ".xlsx")
+        if (!Path.GetExtension(file.FileName).Equals(".xlsx", StringComparison.OrdinalIgnoreCase))
         {
             ViewBag.ErrorMessage = "Only excel files are allowed.";
             return View();
@@ -181,15 +181,15 @@ public class HomeController : Controller
             return View();
         }
 
-        int updatedCount = await _personService.UpdateContriesAsync(file);
+        // int updatedCount = await _personService.UpdateContriesAsync(file);
         var countries = await _personService.GetContriesAsync(file);
-        if (updatedCount == 0)
+        if (countries.Length == 0)
         {
             ViewBag.ErrorMessage = "No records were updated.";
             return View();
         }
 
-        ViewBag.SuccessMessage = $"Countries updated successfully. Total records updated: {updatedCount}";
+        ViewBag.SuccessMessage = $"Countries updated successfully. Total records updated: {countries.Length}";
         ViewBag.Countries = countries;
         return View();
     }
