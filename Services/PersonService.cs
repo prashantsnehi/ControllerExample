@@ -22,6 +22,7 @@ namespace ControllerExample.Services
                 new() { PersonId = Guid.NewGuid(), PersonName = "Tiger", Email = "tiger@example.com", Phone = 223456789, Password = "P@$$w0rd", ConfirmPassword = "P@$$w0rd", Profession = "DBA" },
                 new() { PersonId = Guid.NewGuid(), PersonName = "Administrator", Email = "admin@example.com", Phone = 222456789, Password = "P@$$w0rd", ConfirmPassword = "P@$$w0rd", Profession = "DBA" },
                 new() { PersonId = Guid.NewGuid(), PersonName = "SA", Email = "sa@example.com", Phone = 222256789, Password = "P@$$w0rd", ConfirmPassword = "P@$$w0rd", Profession = "DBA" }
+
             };
         }
         public Guid GetGuid() => ServiceInstanceId;
@@ -113,7 +114,8 @@ namespace ControllerExample.Services
                     headerCells.Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
                     headerCells.Style.VerticalAlignment = OfficeOpenXml.Style.ExcelVerticalAlignment.Center;
                     headerCells.Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
-                    headerCells.Style.Fill.BackgroundColor.SetColor(System.Drawing.Color.LightGray);
+                    headerCells.Style.Fill.BackgroundColor.SetColor(System.Drawing.Color.Blue);
+                    headerCells.Style.Font.Color.SetColor(System.Drawing.Color.White);
                     headerCells.AutoFitColumns();
                 }
 

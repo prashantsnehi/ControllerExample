@@ -8,28 +8,34 @@
 
 <div class="row d-flex justify-content-center align-content-center">
     <div class="col-md-12">
-        <table class="table table-striped table-bordered text-center">
-            <thead>
-                <tr>
-                    <th>Image</th>
-                    <th>Persons Id</th>
-                    <th>Person Name</th>
-                    <th>Email</th>
-                    <th>Phone</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var person in Model)
-                {
-                    <tr>
-                        <td style="font-size: 30px;"><i class="bi bi-person-arms-up"></i></td>
-                        <td>@person.PersonId</td>
-                        <td>@person.PersonName</td>
-                        <td>@person.Email</td>
-                        <td>@person.Phone</td>
-                    </tr>
-                }
-            </tbody>
-        </table>
+        <div class="card shadow-lg">
+            <div class="card-header text-center"><h4>Persons Details</h4></div>
+            <div class="card-body">
+                <table class="table table-striped table-bordered text-center">
+                    <thead>
+                        <tr>
+                            <th>Image</th>
+                            <th>Persons Id</th>
+                            <th>Person Name</th>
+                            <th>Email</th>
+                            <th>Phone</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var person in Model)
+                        {
+                            <tr>
+                                <td style="font-size: 30px;"><i class="bi bi-person-arms-up"></i></td>
+                                <td>@person.PersonId</td>
+                                <td>@person.PersonName</td>
+                                <td>@person.Email</td>
+                                <td>@person.Phone</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+            <div class="card-footer text-center">Created By: <strong>Prashant Kumar Snehi</strong></div>
+        </div>
     </div>
 </div>
