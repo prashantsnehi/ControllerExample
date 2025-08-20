@@ -3,6 +3,7 @@ using System.Text;
 using ControllerExample.Models;
 using CsvHelper;
 using CsvHelper.Configuration;
+using OfficeOpenXml;
 
 namespace ControllerExample.Services
 {
@@ -92,6 +93,49 @@ namespace ControllerExample.Services
             return await Task.FromResult(memoryStream);
         }
 
+        public async Task<MemoryStream> GenerateExcelAsync()
+        {
+            MemoryStream memoryStream = new MemoryStream();
+            using (ExcelPackage package = new ExcelPackage(memoryStream))
+            {
+                //ExcelPackage.LicenseContext = LicenseContext.NonCommercial; // Set the license context for EPPlus
+                ExcelPackage.License.SetNonCommercialPersonal("Prashant");
+                var worksheet = package.Workbook.Worksheets.Add("Persons");
+                worksheet.Cells[1, 1].Value = "Sr.No";
+                worksheet.Cells[1, 2].Value = nameof(Person.PersonId);
+                worksheet.Cells[1, 3].Value = nameof(Person.PersonName);
+                worksheet.Cells[1, 4].Value = nameof(Person.Email);
+                worksheet.Cells[1, 5].Value = nameof(Person.Phone);
+
+                using(ExcelRange headerCells = worksheet.Cells[1, 1, 1, 5])
+                {
+                    headerCells.Style.Font.Bold = true;
+                    headerCells.Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
+                    headerCells.Style.VerticalAlignment = OfficeOpenXml.Style.ExcelVerticalAlignment.Center;
+                    headerCells.Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
+                    headerCells.Style.Fill.BackgroundColor.SetColor(System.Drawing.Color.LightGray);
+                    headerCells.AutoFitColumns();
+                }
+
+                int rowIndex = 2;
+                int index = 1;
+                foreach (var person in _persons)
+                {
+                    worksheet.Cells[rowIndex, 1].Value = index++;
+                    worksheet.Cells[rowIndex, 2].Value = person.PersonId;
+                    worksheet.Cells[rowIndex, 3].Value = person.PersonName;
+                    worksheet.Cells[rowIndex, 4].Value = person.Email;
+                    worksheet.Cells[rowIndex, 5].Value = person.Phone;
+                    rowIndex++;
+                }
+
+                worksheet.Cells[worksheet.Dimension.Address].AutoFitColumns();
+                await package.SaveAsync();
+            }
+
+            memoryStream.Position = 0; // Reset the stream position to the beginning
+            return await Task.FromResult(memoryStream);
+        }
     }
 
 }

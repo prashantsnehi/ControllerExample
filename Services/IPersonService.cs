@@ -9,8 +9,8 @@ namespace ControllerExample.Services
         Person? GetPersonById(Guid guid);
         Guid GetGuid();
         bool AddPerson(Person person);
-
         Task<MemoryStream> GenerateCsvAsync(List<Person> persons);
         Task<MemoryStream> GenerateCustomCsvAsync(List<Person> persons);
+        Task<MemoryStream> GenerateExcelAsync();
     }
 }

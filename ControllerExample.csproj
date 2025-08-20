@@ -10,6 +10,7 @@
     <PackageReference Include="bootstrap" Version="5.3.7" />
     <PackageReference Include="BootstrapIcons.AspNetCore" Version="1.11.0" />
     <PackageReference Include="CsvHelper" Version="2.11.0" />
+    <PackageReference Include="EPPlus" Version="8.1.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="9.0.8" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="9.0.8">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>

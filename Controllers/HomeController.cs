@@ -148,4 +148,11 @@ public class HomeController : Controller
         var memoryStream = await _personService.GenerateCustomCsvAsync(persons);  
         return File(memoryStream, "application/octet-stream","Persons.csv");
     }
+
+    [HttpGet]
+    public async Task<IActionResult> PersonExcel()
+    {
+        var memoryStream = await _personService.GenerateExcelAsync();
+        return File(memoryStream, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "Persons.xlsx");
+    }
 }
