@@ -42,7 +42,6 @@ namespace ControllerExample.Services
                 // throw new ArgumentException("Person cannot be null or have empty fields.");
             }
         }
-
         public async Task<MemoryStream> GenerateCsvAsync(List<Person> persons)
         {
             var memoryStream = new MemoryStream();
@@ -57,7 +56,6 @@ namespace ControllerExample.Services
 
             return await Task.FromResult(memoryStream);
         }
-
         public async Task<MemoryStream> GenerateCustomCsvAsync(List<Person> persons)
         {
             var memoryStream = new MemoryStream();
@@ -93,7 +91,6 @@ namespace ControllerExample.Services
 
             return await Task.FromResult(memoryStream);
         }
-
         public async Task<MemoryStream> GenerateExcelAsync()
         {
             MemoryStream memoryStream = new MemoryStream();
@@ -108,7 +105,7 @@ namespace ControllerExample.Services
                 worksheet.Cells[1, 4].Value = nameof(Person.Email);
                 worksheet.Cells[1, 5].Value = nameof(Person.Phone);
 
-                using(ExcelRange headerCells = worksheet.Cells[1, 1, 1, 5])
+                using (ExcelRange headerCells = worksheet.Cells[1, 1, 1, 5])
                 {
                     headerCells.Style.Font.Bold = true;
                     headerCells.Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
@@ -138,6 +135,56 @@ namespace ControllerExample.Services
             memoryStream.Position = 0; // Reset the stream position to the beginning
             return await Task.FromResult(memoryStream);
         }
-    }
+        public async Task<int> UpdateContriesAsync(IFormFile file)
+        {
+            var memoryStream = new MemoryStream();
+            await file.CopyToAsync(memoryStream);
+            memoryStream.Position = 0; // Reset the stream position to the beginning
 
+            using (var package = new ExcelPackage(memoryStream))
+            {
+                var worksheet = package.Workbook.Worksheets[0];
+                int rowCount = worksheet.Dimension.Rows;
+                int updatedCount = 0;
+
+                for (int row = 2; row <= rowCount; row++)
+                {
+                    var countryName = worksheet.Cells[row, 1].Text;
+                    if (!string.IsNullOrEmpty(countryName))
+                    {
+                        // Simulate updating the country in the database
+                        // UpdateCountryInDatabase(countryName);
+                        updatedCount++;
+                    }
+                }
+
+                await package.SaveAsync();
+                return updatedCount;
+            }
+        }
+        public async Task<string[]> GetContriesAsync(IFormFile file)
+        {
+            var memoryStream = new MemoryStream();
+            await file.CopyToAsync(memoryStream);
+            memoryStream.Position = 0; // Reset the stream position to the beginning
+
+            using (var package = new ExcelPackage(memoryStream))
+            {
+                var worksheet = package.Workbook.Worksheets[0];
+                int rowCount = worksheet.Dimension.Rows;
+                var countries = new List<string>();
+
+                for (int row = 2; row <= rowCount; row++)
+                {
+                    var countryName = worksheet.Cells[row, 1].Text;
+                    if (!string.IsNullOrEmpty(countryName))
+                    {
+                        countries.Add(countryName);
+                    }
+                }
+
+                return await Task.FromResult(countries.ToArray());
+            }
+        }
+    }
 }

@@ -12,5 +12,7 @@ namespace ControllerExample.Services
         Task<MemoryStream> GenerateCsvAsync(List<Person> persons);
         Task<MemoryStream> GenerateCustomCsvAsync(List<Person> persons);
         Task<MemoryStream> GenerateExcelAsync();
+        Task<int> UpdateContriesAsync(IFormFile file);
+        Task<string[]> GetContriesAsync(IFormFile file);
     }
 }

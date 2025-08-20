@@ -140,13 +140,13 @@ public class HomeController : Controller
         var memoryStream = await _personService.GenerateCsvAsync(persons);
         return await Task.FromResult(File(memoryStream, "application/octet-stream", "Persons.csv"));
     }
-    
+
     [HttpGet]
     public async Task<IActionResult> PersonCustomCSV()
     {
         var persons = _personService.GetPersons();
-        var memoryStream = await _personService.GenerateCustomCsvAsync(persons);  
-        return await Task.FromResult(File(memoryStream, "application/octet-stream","Persons.csv"));
+        var memoryStream = await _personService.GenerateCustomCsvAsync(persons);
+        return await Task.FromResult(File(memoryStream, "application/octet-stream", "Persons.csv"));
     }
 
     [HttpGet]
@@ -154,5 +154,43 @@ public class HomeController : Controller
     {
         var memoryStream = await _personService.GenerateExcelAsync();
         return await Task.FromResult(File(memoryStream, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "Persons.xlsx"));
+    }
+
+    [HttpGet]
+    public async Task<IActionResult> UpdateCountries()
+    {
+        return await Task.FromResult(View());
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> UpdateCountries(IFormFile file)
+    {
+        if (file == null || file.Length == 0)
+        {
+            ViewBag.ErrorMessage = "File is not selected or empty.";
+            return View();
+        }
+        if (Path.GetExtension(file.FileName).ToLower() != ".xlsx")
+        {
+            ViewBag.ErrorMessage = "Only excel files are allowed.";
+            return View();
+        }
+        if (file.Length > 10485760) // 10 MB
+        {
+            ViewBag.ErrorMessage = "File size exceeds the limit of 10 MB.";
+            return View();
+        }
+
+        int updatedCount = await _personService.UpdateContriesAsync(file);
+        var countries = await _personService.GetContriesAsync(file);
+        if (updatedCount == 0)
+        {
+            ViewBag.ErrorMessage = "No records were updated.";
+            return View();
+        }
+
+        ViewBag.SuccessMessage = $"Countries updated successfully. Total records updated: {updatedCount}";
+        ViewBag.Countries = countries;
+        return View();
     }
 }
