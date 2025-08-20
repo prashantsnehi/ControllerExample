@@ -124,13 +124,13 @@ public class HomeController : Controller
         var persons = _personService.GetPersons();
         // var pdfBytes = await PdfGenerator.GeneratePdfAsync(persons);
         // return File(pdfBytes, "application/pdf", "Persons.pdf");
-        return new ViewAsPdf("PersonPDF", persons)
+        return await Task.FromResult(new ViewAsPdf("PersonPDF", persons)
         {
             FileName = "Persons.pdf",
             PageSize = Rotativa.AspNetCore.Options.Size.A4,
             PageMargins = new Rotativa.AspNetCore.Options.Margins(20, 20, 20, 20),
             PageOrientation = Rotativa.AspNetCore.Options.Orientation.Portrait
-        };
+        });
     }
 
     [HttpGet]
@@ -138,7 +138,7 @@ public class HomeController : Controller
     {
         var persons = _personService.GetPersons();
         var memoryStream = await _personService.GenerateCsvAsync(persons);
-        return File(memoryStream, "application/octet-stream", "Persons.csv");
+        return await Task.FromResult(File(memoryStream, "application/octet-stream", "Persons.csv"));
     }
     
     [HttpGet]
@@ -146,13 +146,13 @@ public class HomeController : Controller
     {
         var persons = _personService.GetPersons();
         var memoryStream = await _personService.GenerateCustomCsvAsync(persons);  
-        return File(memoryStream, "application/octet-stream","Persons.csv");
+        return await Task.FromResult(File(memoryStream, "application/octet-stream","Persons.csv"));
     }
 
     [HttpGet]
     public async Task<IActionResult> PersonExcel()
     {
         var memoryStream = await _personService.GenerateExcelAsync();
-        return File(memoryStream, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "Persons.xlsx");
+        return await Task.FromResult(File(memoryStream, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "Persons.xlsx"));
     }
 }
