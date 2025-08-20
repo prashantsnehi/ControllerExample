@@ -21,8 +21,8 @@ if (!app.Environment.IsDevelopment())
 }
 
 Rotativa.AspNetCore.RotativaConfiguration.Setup(
-    // app.Environment.WebRootPath,
-    "wwwroot",
+    app.Environment.WebRootPath,
+    //"wwwroot",
     // app.Environment.ContentRootPath,
     wkhtmltopdfRelativePath: "Rotativa"
 );

@@ -1,16 +1,16 @@
 @model ICollection<Person>
 @{
     Layout = null;
+    string baseUrl = $"{Context.Request.Scheme}://{Context.Request.Host}";
 }
 
 @* <link rel="stylesheet" href="~/lib/bootstrap-icons/font/bootstrap-icons.css" />
 <link rel="stylesheet" href="~/lib/bootstrap/css/bootstrap.min.css" /> *@
-<link href="@("http://"+ Context.Request.Host + "/lib/bootstrap/css/bootstrap.min.css")" rel="stylesheet" />    
-<link href="@("http://"+ Context.Request.Host + "/lib/bootstrap-icons/font/bootstrap-icons.css")" rel="stylesheet" />    
+<link href="@(baseUrl + "/lib/bootstrap/dist/css/bootstrap.min.css")" rel="stylesheet" />    
 
 <div class="row d-flex justify-content-center align-content-center">
     <div class="col-md-12">
-        <table class="table table-striped text-center">
+        <table class="table table-striped table-bordered text-center">
             <thead>
                 <tr>
                     <th>Image</th>
