@@ -23,7 +23,7 @@ builder.Host.ConfigureLogging(loggerConfiguration =>
 builder.Services.AddControllersWithViews(options =>
 {
     var logger = builder.Services?.BuildServiceProvider().GetRequiredService<ILogger<ResponseHeaderFilter>>();
-    options.Filters.Add(new ResponseHeaderFilter(logger, "X-Developer", "Prashant"));
+    options.Filters.Add(new ResponseHeaderFilter(logger, "X-Developer-Info", "Prashant"));
 });
 builder.Services.Add(new ServiceDescriptor(
     typeof(IPersonService),
