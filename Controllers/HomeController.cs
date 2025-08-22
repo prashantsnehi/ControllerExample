@@ -1,14 +1,15 @@
-using System.Diagnostics;
-using Microsoft.AspNetCore.Mvc;
+using ControllerExample.Filters;
 using ControllerExample.Models;
-using System.Text.Json;
 using ControllerExample.Services;
-using Rotativa.AspNetCore;
 using CsvHelper;
-using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
+using Rotativa.AspNetCore;
+using System.Diagnostics;
+using System.Text.Json;
 
 namespace ControllerExample.Controllers;
 
+[TypeFilter(typeof(ResponseHeaderFilter), Arguments = new object[] { "X-Server-Info", "Prashant" })]
 public class HomeController : Controller
 {
     private readonly ILogger<HomeController> _logger;
@@ -25,6 +26,8 @@ public class HomeController : Controller
         _personService2 = personService2;
     }
 
+    [TypeFilter(typeof(PersonListActionFilter))]
+    [TypeFilter(typeof(ResponseHeaderFilter), Arguments = new object[] { "X-Platform-Info", "Linux" })]
     public IActionResult Index()
     {
         // ViewBag.Source = Request.Path;

@@ -22,7 +22,6 @@ namespace ControllerExample.Services
                 new() { PersonId = Guid.NewGuid(), PersonName = "Tiger", Email = "tiger@example.com", Phone = 223456789, Password = "P@$$w0rd", ConfirmPassword = "P@$$w0rd", Profession = "DBA" },
                 new() { PersonId = Guid.NewGuid(), PersonName = "Administrator", Email = "admin@example.com", Phone = 222456789, Password = "P@$$w0rd", ConfirmPassword = "P@$$w0rd", Profession = "DBA" },
                 new() { PersonId = Guid.NewGuid(), PersonName = "SA", Email = "sa@example.com", Phone = 222256789, Password = "P@$$w0rd", ConfirmPassword = "P@$$w0rd", Profession = "DBA" }
-
             };
         }
         public Guid GetGuid() => ServiceInstanceId;
