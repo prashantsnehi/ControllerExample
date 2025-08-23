@@ -1,7 +1,6 @@
 using ControllerExample.Filters;
 using ControllerExample.Models;
 using ControllerExample.Services;
-using CsvHelper;
 using Microsoft.AspNetCore.Mvc;
 using Rotativa.AspNetCore;
 using System.Diagnostics;
