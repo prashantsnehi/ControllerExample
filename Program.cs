@@ -9,7 +9,7 @@ builder.Host.ConfigureLogging(loggerConfiguration =>
 {
     loggerConfiguration.ClearProviders();
     loggerConfiguration.AddDebug();
-    loggerConfiguration.AddEventLog();
+    // loggerConfiguration.AddEventLog();
     loggerConfiguration.AddConsole();
 });
 
@@ -22,8 +22,11 @@ builder.Host.ConfigureLogging(loggerConfiguration =>
 // add custom filter as global filter
 builder.Services.AddControllersWithViews(options =>
 {
-    var logger = builder.Services?.BuildServiceProvider().GetRequiredService<ILogger<ResponseHeaderFilter>>();
+    var logger = builder.Services?.BuildServiceProvider()
+        .GetRequiredService<ILogger<ResponseHeaderFilter>>();
     options.Filters.Add(new ResponseHeaderFilter(logger, "X-Developer-Info", "Prashant"));
+    options.Filters.Add(new ResponseHeaderFilter(logger, "X-Location", "India"));
+    options.Filters.Add(new ResponseHeaderFilter(logger, "X-Environment", builder.Environment.EnvironmentName));
 });
 builder.Services.Add(new ServiceDescriptor(
     typeof(IPersonService),
