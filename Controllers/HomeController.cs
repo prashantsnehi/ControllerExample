@@ -15,7 +15,6 @@ public class HomeController : Controller
     private readonly IPersonService _personService;
     private readonly IPersonService _personService1;
     private readonly IPersonService _personService2;
-
     public HomeController(ILogger<HomeController> logger, IPersonService personService,
         IPersonService personService1, IPersonService personService2)
     {
@@ -44,7 +43,6 @@ public class HomeController : Controller
 
         return View();
     }
-
     public IActionResult Privacy()
     {
         ViewBag.Source = Request.Path;
